@@ -1,6 +1,6 @@
-import { DisplayOrder } from '../../types/OrderTypes';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { DisplayOrder } from '../../types/OrderTypes';
 import OrderRow from './OrderRow';
 
 it('renders without crashing', () => {

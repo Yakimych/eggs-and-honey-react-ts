@@ -2,12 +2,12 @@ import { OrderListColumn } from './OrderListTypes';
 import { DisplayOrder, ProductType } from './OrderTypes';
 
 type OrderListContainerProps = {
-  columns: Array<OrderListColumn>
+  columns: OrderListColumn[]
 }
 
 type OrderListContainerState = {
-  filteredOrders: Array<DisplayOrder>,
-  productTypes: Array<ProductType>
+  filteredOrders: DisplayOrder[],
+  productTypes: ProductType[]
 }
 
 export { OrderListContainerProps, OrderListContainerState };

@@ -1,60 +1,23 @@
-import { ProductType, Order, DisplayOrder } from '../../types/OrderTypes';
-import { AdminOrderListProps, AdminOrderListState } from '../../types/AdminOrderListTypes';
 import * as React from 'react';
+import OrderService from '../../services/OrderService';
+import { AdminOrderListProps, AdminOrderListState } from '../../types/AdminOrderListTypes';
+import { DisplayOrder, Order, ProductType } from '../../types/OrderTypes';
 import OrderList from '../OrderList/OrderList';
 import ProductSelector from '../ProductSelector/ProductSelector';
-import OrderService from '../../services/OrderService';
 
 class AdminOrderListContainer extends React.Component<AdminOrderListProps, AdminOrderListState> {
-  orders = [];
-  productTypes = [];
+  private orders: Order[] = [];
+  private productTypes: ProductType[] = [];
 
   constructor(props: AdminOrderListProps) {
     super(props);
     this.state = {
       filteredOrders: [],
-      selectedProductType: null
+      selectedProductType: undefined
     };
   }
 
-  componentDidMount = () =>
-    this.getProductTypes();
-
-  componentWillReceiveProps = (nextProps: AdminOrderListProps) => {
-    this.orders = nextProps.orders;
-    this.updateFilteredOrders(this.state.selectedProductType);
-  }
-
-  getProductTypes = () => {
-    OrderService
-      .getProductTypes()
-      .then((productTypes) => this.productTypes = productTypes)
-      .catch((error) => console.log(error));
-  }
- 
-  updateFilteredOrders = (selectedProductType: ProductType | null) => {
-    this.setState({ selectedProductType });
-
-    let filteredOrders =
-      !selectedProductType
-        ? this.orders
-        : this.orders.filter((order) => order.productType === selectedProductType);
-    this.setState({ filteredOrders });
-  }
-
-  resolveOrder = (orderId: number) => {
-    OrderService.resolveOrder(orderId).then((order) => this.props.onOrderResolved(order));
-  }
-
-  toDisplayOrder = (order: Order): DisplayOrder =>
-    ({
-      id: order.id,
-      name: order.name,
-      productType: order.productType,
-      datePlaced: order.datePlaced.toLocaleDateString('sv')
-    });
-
-  render() {
+  public render() {
     return (
       <div>
         <ProductSelector
@@ -69,6 +32,44 @@ class AdminOrderListContainer extends React.Component<AdminOrderListProps, Admin
       </div>
     );
   }
+
+  public componentDidMount = () =>
+    this.getProductTypes();
+
+  public componentWillReceiveProps = (nextProps: AdminOrderListProps) => {
+    this.orders = nextProps.orders;
+    this.updateFilteredOrders(this.state.selectedProductType);
+  }
+
+  private getProductTypes = () => {
+    OrderService
+      .getProductTypes()
+      .then((productTypes) => this.productTypes = productTypes)
+      .catch((error) => console.log(error));
+  }
+ 
+  private updateFilteredOrders = (selectedProductType?: ProductType) => {
+    this.setState({ selectedProductType });
+
+    const filteredOrders =
+      !selectedProductType
+        ? this.orders
+        : this.orders.filter((order) => order.productType === selectedProductType);
+    this.setState({ filteredOrders });
+  }
+
+  private resolveOrder = (orderId: number) => {
+    OrderService.resolveOrder(orderId).then((order) => this.props.onOrderResolved(order));
+  }
+
+  private toDisplayOrder = (order: Order): DisplayOrder =>
+    ({
+      id: order.id,
+      name: order.name,
+      productType: order.productType,
+      datePlaced: order.datePlaced.toLocaleDateString('sv')
+    });
+
 }
 
 export default AdminOrderListContainer;

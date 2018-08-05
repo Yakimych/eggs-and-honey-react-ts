@@ -1,14 +1,14 @@
 import { ProductType } from './OrderTypes.js';
 
 type AddOrderProps = {
-  productTypes: Array<ProductType>,
+  productTypes: ProductType[],
   onAddOrder: (name: string, product: ProductType) => void,
-  activeProductTypeChanged: (name: ProductType | null) => void
+  activeProductTypeChanged: (name?: ProductType) => void
 }
 
 type AddOrderState = {
   name: string,
-  productType: ProductType | null
+  productType?: ProductType
 }
 
 export { AddOrderProps, AddOrderState };

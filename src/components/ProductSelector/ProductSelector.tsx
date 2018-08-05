@@ -3,15 +3,7 @@ import { ProductType } from '../../types/OrderTypes';
 import { ProductSelectorProps } from '../../types/ProductSelectorTypes';
 
 class ProductSelector extends React.Component<ProductSelectorProps> {
-  productTypeIsActive = (productType: ProductType) =>
-    productType === this.props.activeProductType;
-
-  productTypeClicked = (productType: ProductType) => {
-    const newProductType: ProductType | null = this.props.activeProductType === productType ? null : productType;
-    this.props.onActiveChanged(newProductType);
-  }
-
-  render() {
+  public render() {
     return (
       <div>
         <div className="btn-group">
@@ -29,6 +21,15 @@ class ProductSelector extends React.Component<ProductSelectorProps> {
       </div>
     );
   }
+
+  private productTypeIsActive = (productType: ProductType) =>
+    productType === this.props.activeProductType;
+
+  private productTypeClicked = (productType: ProductType) => {
+    const newProductType: ProductType | undefined = this.props.activeProductType === productType ? undefined : productType;
+    this.props.onActiveChanged(newProductType);
+  }
+
 }
 
 export default ProductSelector;

@@ -1,45 +1,23 @@
-import { AdminPageState } from '../../types/AdminPageTypes';
 import * as React from 'react';
-import AdminOrderListContainer from '../OrderListContainers/AdminOrderListContainer';
 import OrderService from '../../services/OrderService';
+import { AdminPageState } from '../../types/AdminPageTypes';
+import AdminOrderListContainer from '../OrderListContainers/AdminOrderListContainer';
 import OrderHistory from '../OrderListContainers/OrderHistoryContainer';
 import './AdminPage.css';
 
-let columns = [
+const columns = [
   // TODO: Make name and order hardcoded in the list?
   { name: 'name', label: 'Name' },
   { name: 'order', label: 'Order' },
   { name: 'datePlaced', label: 'Date Placed' }
 ];
 
-let historyColumns = columns.concat([ { name: 'dateResolved', label: 'Date Resolved' } ]);
+const historyColumns = columns.concat([ { name: 'dateResolved', label: 'Date Resolved' } ]);
 
 class AdminPage extends React.Component<any, AdminPageState> {
-  state = { orders: [], resolvedOrders: [] };
+  public state = { orders: [], resolvedOrders: [] };
 
-  componentDidMount() {
-    this.getOrders();
-    this.getOrderHistory();
-  }
-
-  getOrders = () => {
-    OrderService.getOrders()
-      .then((orders) => this.setState({ orders: orders }))
-      .catch((error) => console.log(error));
-  }
-
-  getOrderHistory = () => {
-    OrderService.getOrderHistory()
-      .then((resolvedOrders) => this.setState({ resolvedOrders: resolvedOrders }))
-      .catch((error) => console.log(error));
-  }
-
-  handleOrderResolutionChanged = () => {
-    this.getOrders();
-    this.getOrderHistory();
-  }
-
-  render() {
+  public render() {
     return (
       <div className="my-3 p-3 bg-white rounded box-shadow admin-page-container">
         <h3>Admin View</h3>
@@ -53,6 +31,27 @@ class AdminPage extends React.Component<any, AdminPageState> {
           onOrderUnresolved={this.handleOrderResolutionChanged} />
       </div>
     );
+  }
+  public componentDidMount() {
+    this.getOrders();
+    this.getOrderHistory();
+  }
+
+  private getOrders = () => {
+    OrderService.getOrders()
+      .then((orders) => this.setState({ orders }))
+      .catch((error) => console.log(error));
+  }
+
+  private getOrderHistory = () => {
+    OrderService.getOrderHistory()
+      .then((resolvedOrders) => this.setState({ resolvedOrders }))
+      .catch((error) => console.log(error));
+  }
+
+  private handleOrderResolutionChanged = () => {
+    this.getOrders();
+    this.getOrderHistory();
   }
 }
 

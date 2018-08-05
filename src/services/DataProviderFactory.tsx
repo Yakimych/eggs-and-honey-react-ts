@@ -4,7 +4,7 @@ import DataProvider from './DataProvider';
 import FakeDataProvider from './FakeDataProvider';
 
 const dataProviderFactory = {
-  getDataProvider : getDataProvider
+  getDataProvider
 };
 
 function getDataProvider(): IDataProvider {

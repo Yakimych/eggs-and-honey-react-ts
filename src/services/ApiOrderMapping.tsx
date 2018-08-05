@@ -1,8 +1,9 @@
-import { Order, ResolvedOrder, ApiOrder, ApiResolvedOrder, ProductType } from '../types/OrderTypes';
+import { ApiOrder, ApiResolvedOrder, Order, ProductType, ResolvedOrder } from '../types/OrderTypes';
 
 const productTypeFromString = (orderTypeString: string): ProductType => {
-  if (orderTypeString === 'Eggs' || orderTypeString === 'Honey')
+  if (orderTypeString === 'Eggs' || orderTypeString === 'Honey') {
     return orderTypeString;
+  }
   throw new Error(`Error parsing ProductType: ${orderTypeString}`);
 };
 

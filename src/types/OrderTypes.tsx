@@ -39,11 +39,11 @@ type ApiResolvedOrder = {
 }
 
 type OrderItems = {
-  items: Array<ApiOrder>
+  items: ApiOrder[]
 }
 
 type ResolvedOrderItems = {
-  items: Array<ApiResolvedOrder>
+  items: ApiResolvedOrder[]
 }
 
 type ResultWithId = {

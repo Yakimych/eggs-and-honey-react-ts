@@ -1,6 +1,6 @@
+import * as React from 'react';
 import { OrderRowProps } from '../../Types/OrderRowProps';
 import SpanOrEmpty from './SpanOrEmpty';
-import * as React from 'react';
 
 const OrderRow = (props: OrderRowProps) => {
   return (

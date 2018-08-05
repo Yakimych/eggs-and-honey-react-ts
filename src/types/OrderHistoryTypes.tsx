@@ -1,9 +1,9 @@
-import { Order, ResolvedOrder } from './OrderTypes';
 import { OrderListColumn } from './OrderListTypes';
+import { Order, ResolvedOrder } from './OrderTypes';
 
 type OrderHistoryProps = {
-  columns: Array<OrderListColumn>,
-  resolvedOrders: Array<ResolvedOrder>,
+  columns: OrderListColumn[],
+  resolvedOrders: ResolvedOrder[],
   onOrderUnresolved: (order: Order) => void
 }
 

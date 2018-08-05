@@ -1,5 +1,5 @@
-import { ProductType, Order, ResolvedOrder, ApiOrder, ApiResolvedOrder, OrderItems, ResolvedOrderItems } from '../types/OrderTypes';
 import { IDataProvider } from '../types/IDataProvider';
+import { ApiOrder, ApiResolvedOrder, Order, OrderItems, ProductType, ResolvedOrder, ResolvedOrderItems } from '../types/OrderTypes';
 import { toOrder, toResolvedOrder } from './ApiOrderMapping';
 let currentOrderId = 1;
 const fakeOrders: OrderItems = {
@@ -20,33 +20,33 @@ const fakeResolvedOrders: ResolvedOrderItems = {
 };
 
 class FakeDataProvider implements IDataProvider {
-  getOrders = (): Promise<Array<Order>> =>
+  public getOrders = (): Promise<Order[]> =>
     new Promise((resolve) => {
       resolve(fakeOrders.items.slice().map(toOrder));
     });
 
-  getResolvedOrders = (): Promise<Array<ResolvedOrder>> =>
+  public getResolvedOrders = (): Promise<ResolvedOrder[]> =>
     new Promise((resolve) => {
       resolve(fakeResolvedOrders.items.slice().map(toResolvedOrder));
     });
 
-  addOrder = (name: string, productType: ProductType): Promise<number> =>
+  public addOrder = (name: string, productType: ProductType): Promise<number> =>
     new Promise((resolve) => {
       console.log(`FakeDataProvider: adding order: ${name} ${productType}`);
-      fakeOrders.items.push({ id: currentOrderId++, name: name, order: productType, datePlaced: '' });
+      fakeOrders.items.push({ id: currentOrderId++, name, order: productType, datePlaced: '' });
       resolve(currentOrderId);
     });
 
-  resolveOrder = (orderId: number): Promise<ResolvedOrder> =>
+  public resolveOrder = (orderId: number): Promise<ResolvedOrder> =>
     new Promise((resolve, reject) => {
       console.log(`FakeDataProvider: resolving order: ${orderId}`);
-      let orderToResolve = fakeOrders.items.find((order) => order.id === orderId);
+      const orderToResolve = fakeOrders.items.find((order) => order.id === orderId);
       if (!orderToResolve) {
         reject('Order to resolve not found');
       }
       else {
         fakeOrders.items = fakeOrders.items.filter((order) => order.id !== orderId);
-        let newResolvedOrder: ApiResolvedOrder = 
+        const newResolvedOrder: ApiResolvedOrder = 
           {
             id: currentResolvedOrderId++,
             name: orderToResolve.name,
@@ -59,16 +59,16 @@ class FakeDataProvider implements IDataProvider {
       }
     });
 
-  unresolveOrder = (resolvedOrderId: number): Promise<Order> =>
+  public unresolveOrder = (resolvedOrderId: number): Promise<Order> =>
     new Promise((resolve, reject) => {
       console.log(`FakeDataProvider: unresolving order: ${resolvedOrderId}`);
-      let orderToUnresolve = fakeResolvedOrders.items.find((order) => order.id === resolvedOrderId);
+      const orderToUnresolve = fakeResolvedOrders.items.find((order) => order.id === resolvedOrderId);
       if (!orderToUnresolve) {
         reject('Order to unresolve not found');
       }
       else {
         fakeResolvedOrders.items = fakeResolvedOrders.items.filter((order) => order.id !== resolvedOrderId);
-        let newUnresolvedOrder: ApiOrder = 
+        const newUnresolvedOrder: ApiOrder = 
           {
             id: currentOrderId++,
             name: orderToUnresolve.name,
