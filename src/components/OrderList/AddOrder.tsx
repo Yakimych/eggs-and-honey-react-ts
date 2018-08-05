@@ -2,7 +2,6 @@ import { AddOrderProps, AddOrderState } from '../../types/AddOrderTypes';
 import { ProductType } from '../../types/OrderTypes';
 import * as React from 'react';
 import ProductSelector from '../ProductSelector/ProductSelector';
-import PropTypes from 'prop-types';
 
 class AddOrder extends React.Component<AddOrderProps, AddOrderState> {
   constructor(props: AddOrderProps) {
@@ -10,7 +9,7 @@ class AddOrder extends React.Component<AddOrderProps, AddOrderState> {
     this.state = { name: '', productType: null };
   }
 
-  nameChanged = (event: SyntheticInputEvent<EventTarget>) => this.setState({ name: event.target.value });
+  nameChanged = (event: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: event.target.value });
 
   canAddOrder = () => !!this.state.name && !!this.state.productType;
  
@@ -39,11 +38,5 @@ class AddOrder extends React.Component<AddOrderProps, AddOrderState> {
     );
   }
 }
-
-AddOrder.propTypes = {
-  productTypes: PropTypes.array.isRequired,
-  onAddOrder: PropTypes.func.isRequired,
-  activeProductTypeChanged: PropTypes.func.isRequired
-};
 
 export default AddOrder;

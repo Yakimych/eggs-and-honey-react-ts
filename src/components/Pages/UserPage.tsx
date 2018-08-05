@@ -2,7 +2,6 @@ import { OrderListContainerProps } from '../../types/OrderListContainerTypes';
 import * as React from 'react';
 import OrderListContainer from '../OrderListContainers/OrderListContainer';
 import './UserPage.css';
-import PropTypes from 'prop-types';
 
 class UserPage extends React.Component<OrderListContainerProps> {
   render() {
@@ -14,9 +13,5 @@ class UserPage extends React.Component<OrderListContainerProps> {
     );
   }
 }
-
-UserPage.propTypes = {
-  columns: PropTypes.array.isRequired
-};
 
 export default UserPage;

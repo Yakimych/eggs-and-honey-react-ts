@@ -3,7 +3,6 @@ import { ResolvedOrder, DisplayOrder } from '../../types/OrderTypes';
 import * as React from 'react';
 import OrderList from '../OrderList/OrderList';
 import OrderService from '../../services/OrderService';
-import PropTypes from 'prop-types';
 
 class OrderHistoryContainer extends React.Component<OrderHistoryProps> {
   unresolveOrder = (resolvedOrderId: number) => {
@@ -30,11 +29,5 @@ class OrderHistoryContainer extends React.Component<OrderHistoryProps> {
       displayOrders={this.props.resolvedOrders.map(this.toDisplayOrder)} />;
   }
 }
-
-OrderHistoryContainer.propTypes = {
-  columns: PropTypes.array.isRequired,
-  resolvedOrders: PropTypes.array.isRequired,
-  onOrderUnresolved: PropTypes.func.isRequired
-};
 
 export default OrderHistoryContainer;

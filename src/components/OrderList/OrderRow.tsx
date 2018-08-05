@@ -1,7 +1,6 @@
 import { OrderRowProps } from '../../Types/OrderRowProps';
 import SpanOrEmpty from './SpanOrEmpty';
 import * as React from 'react';
-import PropTypes from 'prop-types';
 
 const OrderRow = (props: OrderRowProps) => {
   return (
@@ -20,12 +19,6 @@ const OrderRow = (props: OrderRowProps) => {
       <SpanOrEmpty value={props.displayOrder.dateResolved} />
     </div>
   );
-};
-
-OrderRow.propTypes = {
-  action: PropTypes.func,
-  actionLabel: PropTypes.string,
-  displayOrder: PropTypes.object.isRequired
 };
 
 export default OrderRow;
